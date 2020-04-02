@@ -27,3 +27,5 @@ gat_chat-*.tar
 # this depending on your deployment strategy.
 /priv/static/
 /assets/node_modules
+
+.vscode
