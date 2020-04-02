@@ -1,22 +1,28 @@
 <script>
-  export let name;
+  import { tick } from "svelte";
+
   export let socket;
+
+  let name = "";
+  let message = "";
+  let messages = [];
 
   let connected = false;
 
   // Functions
-  const sendMessage = ({ name, message }) => {
+  const sendMessage = (payload) => {
     channel.push("shout", {
-      // send the message to the server on "shout" channel
-      name, // get value of "name" of person sending the message
-      message // get message text (value) from msg input field.
+      name: payload.name,
+      message: payload.message
     });
-    msg.value = "";
+    message = "";
   };
 
-  const onMessageReceived = ({ name, message }) => {
+  const onMessageReceived = async ({ name, message }) => {
     console.log("Name: ", name);
     console.log("Message: ", message);
+    messages = [...messages, { name, message }]
+    await tick();
   };
 
   // // Now that you are connected, you can join channels with a topic:
@@ -31,11 +37,6 @@
       console.log("Unable to join", resp);
     });
   channel.on("shout", onMessageReceived);
-
-
-  
-
-
 </script>
 
 <style>
@@ -45,5 +46,13 @@
 </style>
 
 <h1>Hello {name}!</h1>
-<p>connected {connected}</p>
-<input bind:value={name} placeholder="enter your name">
+<ul>
+  {#each messages as { name, message }}
+    <li>{name}: {message}</li>
+  {/each}
+</ul>
+
+<input bind:value={name} placeholder="enter your name" />
+<input bind:value={message} placeholder="enter your message" />
+
+<button on:click={() => sendMessage({ name, message })}>Enviar</button>
