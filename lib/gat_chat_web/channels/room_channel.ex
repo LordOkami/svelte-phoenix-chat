@@ -10,6 +10,10 @@ defmodule GatChatWeb.RoomChannel do
     end
   end
 
+  def handle_in("ping", payload, socket) do
+    {:reply, {:ok, payload}, socket}
+  end
+
   def handle_in("shout", payload, socket) do
     GatChat.Message.changeset(%GatChat.Message{}, payload) |> GatChat.Repo.insert  
     broadcast socket, "shout", payload

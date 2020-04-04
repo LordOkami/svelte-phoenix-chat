@@ -45,14 +45,17 @@
   }
 </style>
 
-<h1>Hello {name}!</h1>
-<ul>
-  {#each messages as { name, message }}
-    <li>{name}: {message}</li>
-  {/each}
-</ul>
+<div class="background">
 
-<input bind:value={name} placeholder="enter your name" />
-<input bind:value={message} placeholder="enter your message" />
+  <h1>Chat</h1>
+  <ul>
+    {#each messages as { name, message }}
+      <li>{name}: {message}</li>
+    {/each}
+  </ul>
 
-<button on:click={() => sendMessage({ name, message })}>Enviar</button>
+  <input bind:value={name} placeholder="enter your name" />
+  <input bind:value={message} placeholder="enter your message" />
+
+  <button on:click={() => sendMessage({ name, message })}>Enviar</button>
+</div>
