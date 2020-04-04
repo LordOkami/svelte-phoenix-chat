@@ -5,7 +5,7 @@ defmodule GatChat.MixProject do
     [
       app: :gat_chat,
       version: "0.1.0",
-      elixir: "~> 1.5",
+      elixir: "~> 1.9.1",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -51,7 +51,8 @@ defmodule GatChat.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       # tracking test coverage
-      {:excoveralls, "~> 0.7.0", only: [:test, :dev]}
+      {:excoveralls, "~> 0.7.0", only: [:test, :dev]},
+      {:distillery, "~> 2.1", runtime: false}
     ]
   end
 

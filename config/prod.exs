@@ -10,8 +10,20 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :gat_chat, GatChatWeb.Endpoint,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  # Possibly not needed, but doesn't hurt
+  http: [port: {:system, "PORT"}],
+  url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true,
+  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
+  check_origin: false
+
+# Configure your database
+config :gat_chat, GatChat.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  ssl: true,
+  pool_size: 2
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -52,4 +64,4 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"

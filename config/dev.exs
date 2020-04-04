@@ -1,14 +1,5 @@
 use Mix.Config
 
-# Configure your database
-config :gat_chat, GatChat.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "gat_chat_dev",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -21,6 +12,15 @@ config :gat_chat, GatChatWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [yarn: ["watch", cd: Path.expand("../assets", __DIR__)]]
+
+# Configure your database
+config :gat_chat, GatChat.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "gat_chat_dev",
+  hostname: "localhost",
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
 
 # ## SSL Support
 #
