@@ -5,7 +5,7 @@
   import Login from "./Login.svelte";
   import Chat from "./Chat.svelte";
 
-  // Player name, TODO: set one time on init app
+  // Player name
   let name = "";
 
   let message = "";
@@ -30,13 +30,11 @@
   };
 
   const onMessageReceived = async ({ name, message }) => {
-    console.log("Name: ", name);
-    console.log("Message: ", message);
     messages = [...messages, { name, message }];
     await tick();
   };
 
-  const onPresenceSync = () => {
+  const onPresenceSync = (presence) => {
     players = presence.list((id, { metas: [first, ...rest] }) => {
       const count = rest.length + 1;
       return { name: id };
@@ -48,6 +46,7 @@
       user_id,
       channel_topic: "room:lobby"
     });
+
     name = user_id;
     connected = true;
 
@@ -56,7 +55,7 @@
     presence = connection.presence;
 
     chatChannel.on("shout", onMessageReceived);
-    presence.onSync(onPresenceSync);
+    presence.onSync(() => onPresenceSync(presence));
   };
 </script>
 
