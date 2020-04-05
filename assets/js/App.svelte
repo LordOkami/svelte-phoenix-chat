@@ -47,7 +47,7 @@
 
 <div class="background">
 
-  <h1>Chat</h1>
+  <h1>Gat Chat</h1>
   <ul>
     {#each messages as { name, message }}
       <li>{name}: {message}</li>
