@@ -1,8 +1,10 @@
 <script>
+  import PlayersLists from "./PlayersLists.svelte";
   export let messages;
+  export let players;
   export let onSend;
   export let name;
-  
+
   let message = "";
 </script>
 
@@ -23,7 +25,7 @@
       <input bind:value={message} placeholder="enter your message" />
       <button on:click={() => onSend(message)}>Enviar</button>
     </div>
-    <div class="players-panel" />
+    <PlayersLists players={players} />
   </div>
 
 </div>

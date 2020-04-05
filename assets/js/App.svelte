@@ -11,6 +11,8 @@
   let message = "";
   let messages = [];
 
+  let players = [];
+
   // Phoenix variables
   let socket;
   let chatChannel;
@@ -34,6 +36,13 @@
     await tick();
   };
 
+  const onPresenceSync = () => {
+    players = presence.list((id, { metas: [first, ...rest] }) => {
+      const count = rest.length + 1;
+      return { name: id };
+    });
+  };
+
   const onLogin = ({ user_id }) => {
     const connection = connect({
       user_id,
@@ -47,17 +56,7 @@
     presence = connection.presence;
 
     chatChannel.on("shout", onMessageReceived);
-    presence.onSync(() => {
-      console.log("PRESENCE", presence);
-      const playersList = presence
-        .list((id, { metas: [first, ...rest] }) => {
-          const count = rest.length + 1;
-          return `${id}:${count}`;
-        })
-        .join("\n");
-
-      console.log("Players List: ", playersList);
-    });
+    presence.onSync(onPresenceSync);
   };
 </script>
 
@@ -71,5 +70,6 @@
   <Chat
     onSend={message => sendMessage(chatChannel, { name, message })}
     {messages}
-    {name} />
+    {name}
+    {players}/>
 {/if}
