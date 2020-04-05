@@ -11,9 +11,10 @@ defmodule GatChat.Application do
       # Start the Ecto repository
       GatChat.Repo,
       # Start the endpoint when the application starts
-      GatChatWeb.Endpoint
+      GatChatWeb.Endpoint,
       # Starts a worker by calling: GatChat.Worker.start_link(arg)
       # {GatChat.Worker, arg},
+      GatChatWeb.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
