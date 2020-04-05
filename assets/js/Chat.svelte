@@ -23,9 +23,15 @@
       </ul>
       <span>{name}</span>
       <input bind:value={message} placeholder="enter your message" />
-      <button on:click={() => onSend(message)}>Enviar</button>
+      <button
+        on:click={() => {
+          onSend(message);
+          message = '';
+        }}>
+        Enviar
+      </button>
     </div>
-    <PlayersLists players={players} />
+    <PlayersLists {players} />
   </div>
 
 </div>
