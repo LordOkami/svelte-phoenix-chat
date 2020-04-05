@@ -1,7 +1,9 @@
 {
   "name": "assets",
   "version": "1.0.0",
-  "engines" : { "node" : ">=12" },
+  "engines": {
+    "node": ">=12"
+  },
   "scripts": {
     "deploy": "rollup --config",
     "watch": "rollup --config --watch"
@@ -21,4 +23,3 @@
     "svelte-preprocess": "^3.3.1"
   }
 }
-

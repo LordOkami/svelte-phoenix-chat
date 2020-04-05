@@ -6,14 +6,9 @@ import '../css/global.css'
 
 // import our component
 import App from './App.svelte'
-import socket from "./socket"
 // instantiate the component
 new App({
   // mount it to `document.body`
   target: document.body,
-
   // pass some props (optional)
-  props: {
-    socket: socket
-  }
 })

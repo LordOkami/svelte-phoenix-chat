@@ -22,13 +22,16 @@ defmodule GatChatWeb.RoomChannel do
   end
 
   def handle_info(:after_join, socket) do
+    # Instantiate presence for new connection
     push(socket, "presence_state", Presence.list(socket))
 
     {:ok, _} =
       Presence.track(socket, socket.assigns.user_id, %{
-        online_at: inspect(System.system_time(:second))
+        online_at: inspect(System.system_time(:second)),
+        device: "browser"
       })
 
+    # Fetch lasts messages and send them with socket
     GatChat.Message.get_messages()
     |> Enum.each(fn msg ->
       push(socket, "shout", %{
