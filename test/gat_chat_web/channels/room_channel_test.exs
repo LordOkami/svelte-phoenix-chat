@@ -3,7 +3,7 @@ defmodule GatChatWeb.RoomChannelTest do
 
   setup do
     {:ok, _, socket} =
-      socket(GatChatWeb.UserSocket, "user_id", %{some: :assign})
+      socket(GatChatWeb.UserSocket, "user_id", %{some: :assign, user_id: 'test_user'})
       |> subscribe_and_join(GatChatWeb.RoomChannel, "room:lobby")
 
     {:ok, socket: socket}
