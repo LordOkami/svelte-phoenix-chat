@@ -1,6 +1,10 @@
 <script>
   export let onLogin;
   let name = "";
+
+  const submit = () => {
+    onLogin({ user_id: name });
+  };
 </script>
 
 <style>
@@ -9,6 +13,8 @@
 
 <div class="login">
   <h1>Login</h1>
-  <input bind:value={name} placeholder="enter your name" />
-  <button on:click={onLogin({ user_id: name })}>Enviar</button>
+  <form class="login-form" on:submit|preventDefault={submit}>
+    <input bind:value={name} placeholder="enter your name" />
+    <button type="submit">Enviar</button>
+  </form>
 </div>

@@ -6,6 +6,11 @@
   export let name;
 
   let message = "";
+
+  const submit = () => {
+    onSend(message);
+    message = "";
+  };
 </script>
 
 <style>
@@ -22,14 +27,10 @@
         {/each}
       </ul>
       <span>{name}</span>
-      <input bind:value={message} placeholder="enter your message" />
-      <button
-        on:click={() => {
-          onSend(message);
-          message = '';
-        }}>
-        Enviar
-      </button>
+      <form class="message-form" on:submit|preventDefault={submit}>
+        <input bind:value={message} placeholder="enter your message" />
+        <button type="submit">Enviar</button>
+      </form>
     </div>
     <PlayersLists {players} />
   </div>
