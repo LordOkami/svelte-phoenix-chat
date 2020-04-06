@@ -2,8 +2,9 @@
   import { tick } from "svelte";
 
   import { connect } from "./socket";
-  import Login from "./Login.svelte";
-  import Chat from "./Chat.svelte";
+  import Login from "./components/Login.svelte";
+  import Chat from "./components/Chat.svelte";
+  import ThreeViewer from "./components/ThreeViewer/ThreeViewer.svelte";
 
   // Player name
   let name = "";
@@ -34,7 +35,7 @@
     await tick();
   };
 
-  const onPresenceSync = (presence) => {
+  const onPresenceSync = presence => {
     players = presence.list((id, { metas: [first, ...rest] }) => {
       const count = rest.length + 1;
       return { name: id };
@@ -70,5 +71,6 @@
     onSend={message => sendMessage(chatChannel, { name, message })}
     {messages}
     {name}
-    {players}/>
+    {players} />
 {/if}
+<ThreeViewer {players} />
