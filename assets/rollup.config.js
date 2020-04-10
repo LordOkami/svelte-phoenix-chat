@@ -1,13 +1,16 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
-import image from '@rollup/plugin-image';
-import copy from 'rollup-plugin-copy'
 import commonjs from '@rollup/plugin-commonjs';
 
+import livereload from 'rollup-plugin-livereload';
+import { terser } from 'rollup-plugin-terser';
+
+
+import image from '@rollup/plugin-image';
+import copy from 'rollup-plugin-copy'
 import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
 
-import { terser } from 'rollup-plugin-terser';
 
 // it's production mode if MIX_ENV is "prod"
 const production = process.env.MIX_ENV == "prod";
@@ -36,12 +39,11 @@ export default {
 
     // the svelte plugin converts .svelte files to .js equivalent
     svelte({
+      // enable run-time checks when not in production
+			dev: !production,
       // the preprocessor plugin allows you to use <style type="scss"> or <script lang="typescript"> inside .svelte files
       // for more info, see: https://www.npmjs.com/package/svelte-preprocess
       preprocess: autoPreprocess(),
-
-      // enable run-time checks when not in production
-      dev: !production,
 
       // take css output and write it to priv/static
       css: css => {
@@ -62,8 +64,13 @@ export default {
     // use commonjs import convention
     commonjs(),
 
-    // for production builds, use minification
-    production && terser(),
+		// Watch the `public` directory and refresh the
+		// browser on changes when not in production
+		!production && livereload('public'),
+
+		// If we're building for production (npm run build
+		// instead of npm run dev), minify
+		production && terser(),
 
     image(),
     copy({
@@ -76,5 +83,7 @@ export default {
   // don't clear terminal screen after each re-compilation
   watch: {
     clearScreen: false
+    
   }
-}
+};
+
