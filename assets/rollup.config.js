@@ -1,8 +1,12 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
+import image from '@rollup/plugin-image';
+import copy from 'rollup-plugin-copy'
 import commonjs from '@rollup/plugin-commonjs';
+
 import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
+
 import { terser } from 'rollup-plugin-terser';
 
 // it's production mode if MIX_ENV is "prod"
@@ -17,7 +21,11 @@ export default {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: '../priv/static/js/app.js'
+    file: '../priv/static/js/app.js',
+    globals: {
+      'phoenix': 'phx'
+    }
+    
   },
 
   // define all the plugins we'd like to use
@@ -55,7 +63,14 @@ export default {
     commonjs(),
 
     // for production builds, use minification
-    production && terser()
+    production && terser(),
+
+    image(),
+    copy({
+      targets: [
+        { src: 'static/textures/*', dest: '../priv/static/textures' }
+      ]
+    })
   ],
 
   // don't clear terminal screen after each re-compilation

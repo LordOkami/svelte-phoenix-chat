@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+// import brick_texture from "../../../"
+const texture = THREE.ImageUtils.loadTexture("/textures/castle_brick/castle_brick_02_red_diff_1k.jpg");
+// assuming you want the texture to repeat in both directions:
+texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
 
 export const initScene = (container) => {
   var camera, controls, scene, renderer;
@@ -34,8 +38,19 @@ export const initScene = (container) => {
   scene.add(ambientLight);
 
   // Fog
-  scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
+  scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 
+  // Add floor
+
+  const material = new THREE.MeshLambertMaterial({ map: texture });
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 3500), material);
+  plane.material.side = THREE.DoubleSide;
+
+  // rotation.z is rotation around the z-axis, measured in radians (rather than degrees)
+  // Math.PI = 180 degrees, Math.PI / 2 = 90 degrees, etc.
+  plane.rotation.x = Math.PI / 2;
+
+  scene.add(plane);
 
   // controls = new OrbitControls(camera, renderer.domElement);
 
@@ -54,6 +69,7 @@ export const initScene = (container) => {
     renderer.render(scene, camera);
 
   }
+
   animate();
   return scene;
 }
