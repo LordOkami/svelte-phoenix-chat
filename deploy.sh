@@ -28,7 +28,6 @@ if [ "$BRANCH" == "master" ]; then
   git push gigalixir HEAD:master --verbose
   echo "Deploy completed."
   send_msg "<i>Successfully deployed GitHub repo for $TRAVIS_REPO_SLUG</i>
-    <a href="$APP_URL">$APP_URL</a>
     <code>Message: $TRAVIS_COMMIT_MESSAGE</code>
     <code>Pushed by: $AUTHOR_NAME</code>"
   echo "Telegram notification Send"
