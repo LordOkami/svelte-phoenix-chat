@@ -5,6 +5,11 @@ echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR"
 echo "------------------------------------"
 echo "BRANCH=$BRANCH"
 
+# Get WebApp URL
+APP_URL="https://$GIGALIXIR_APP_NAME.gigalixirapp.com"
+
+
+
 # Set up Telegram
 BOT_URL="https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage"
 
@@ -23,6 +28,7 @@ if [ "$BRANCH" == "master" ]; then
   git push gigalixir HEAD:master --verbose
   echo "Deploy completed."
   send_msg "<i>Successfully deployed GitHub repo for $TRAVIS_REPO_SLUG</i>
+    <a href="$APP_URL">$APP_URL</a>
     <code>Message: $TRAVIS_COMMIT_MESSAGE</code>
     <code>Pushed by: $AUTHOR_NAME</code>"
   echo "Telegram notification Send"
