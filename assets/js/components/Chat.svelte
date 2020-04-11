@@ -1,21 +1,21 @@
+<style>
+
+</style>
+
 <script>
-  import PlayersLists from "./PlayersLists.svelte";
+  import PlayersLists from './PlayersLists.svelte';
   export let messages;
   export let players;
   export let onSend;
   export let name;
 
-  let message = "";
+  let message = '';
 
   const submit = () => {
     onSend(message);
-    message = "";
+    message = '';
   };
 </script>
-
-<style>
-
-</style>
 
 <div class="background">
   <h1>Gat Chat</h1>
@@ -27,8 +27,8 @@
         {/each}
       </ul>
       <span>{name}</span>
-      <form class="message-form" on:submit|preventDefault={submit}>
-        <input bind:value={message} placeholder="enter your message" />
+      <form class="message-form" on:submit|preventDefault="{submit}">
+        <input bind:value="{message}" placeholder="enter your message" />
         <button type="submit">Enviar</button>
       </form>
     </div>

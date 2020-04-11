@@ -1,15 +1,19 @@
-<script>
-  import { tick } from "svelte";
+<style>
 
-  import { connect } from "./socket";
-  import Login from "./components/Login.svelte";
-  import Chat from "./components/Chat.svelte";
-  import ThreeViewer from "./components/ThreeViewer/ThreeViewer.svelte";
+</style>
+
+<script>
+  import { tick } from 'svelte';
+
+  import { connect } from './socket';
+  import Login from './components/Login.svelte';
+  import Chat from './components/Chat.svelte';
+  import ThreeViewer from './components/ThreeViewer/ThreeViewer.svelte';
 
   // Player name
-  let name = "";
+  let name = '';
 
-  let message = "";
+  let message = '';
   let messages = [];
 
   let players = [];
@@ -23,11 +27,11 @@
 
   // Functions
   const sendMessage = (channel, payload) => {
-    channel.push("shout", {
+    channel.push('shout', {
       name: payload.name,
-      message: payload.message
+      message: payload.message,
     });
-    message = "";
+    message = '';
   };
 
   const onMessageReceived = async ({ name, message }) => {
@@ -45,7 +49,7 @@
   const onLogin = ({ user_id }) => {
     const connection = connect({
       user_id,
-      channel_topic: "room:lobby"
+      channel_topic: 'room:lobby',
     });
 
     name = user_id;
@@ -55,22 +59,19 @@
     chatChannel = connection.channel;
     presence = connection.presence;
 
-    chatChannel.on("shout", onMessageReceived);
+    chatChannel.on('shout', onMessageReceived);
     presence.onSync(() => onPresenceSync(presence));
   };
 </script>
-
-<style>
-
-</style>
 
 {#if !connected}
   <Login {onLogin} />
 {:else}
   <Chat
-    onSend={message => sendMessage(chatChannel, { name, message })}
+    onSend="{message => sendMessage(chatChannel, { name, message })}"
     {messages}
     {name}
-    {players} />
+    {players}
+  />
 {/if}
 <ThreeViewer {players} />

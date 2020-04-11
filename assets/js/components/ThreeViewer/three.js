@@ -1,10 +1,12 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // import brick_texture from "../../../"
-const texture = THREE.ImageUtils.loadTexture("/textures/castle_brick/castle_brick_02_red_diff_1k.jpg");
+const texture = THREE.ImageUtils.loadTexture(
+  '/textures/castle_brick/castle_brick_02_red_diff_1k.jpg'
+);
 // assuming you want the texture to repeat in both directions:
-texture.wrapS = THREE.RepeatWrapping;
-texture.wrapT = THREE.RepeatWrapping;
+// texture.wrapS = THREE.RepeatWrapping;
+// texture.wrapT = THREE.RepeatWrapping;
 
 export const initScene = (container) => {
   var camera, controls, scene, renderer;
@@ -17,16 +19,20 @@ export const initScene = (container) => {
   renderer.setSize(width, height);
   container.appendChild(renderer.domElement);
 
-  camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 0.11, 1000);
+  camera = new THREE.OrthographicCamera(
+    width / -2,
+    width / 2,
+    height / 2,
+    height / -2,
+    0.11,
+    1000
+  );
   camera.position.z = 100;
   camera.position.y = 100;
   camera.position.x = 100;
-  camera.lookAt(new THREE.Vector3(0, 0, 0))
-
+  camera.lookAt(new THREE.Vector3(0, 0, 0));
 
   scene = new THREE.Scene();
-
-
 
   const color = 0xffffff;
   const intensity = 1;
@@ -57,22 +63,15 @@ export const initScene = (container) => {
   renderer.render(scene, camera);
 
   const animate = () => {
-
     requestAnimationFrame(animate);
 
     render();
-
-  }
+  };
 
   const render = () => {
-
     renderer.render(scene, camera);
-
-  }
+  };
 
   animate();
   return scene;
-}
-
-
-
+};

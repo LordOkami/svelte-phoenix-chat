@@ -1,9 +1,16 @@
+<style>
+  .container {
+    width: 500px;
+    height: 500px;
+  }
+</style>
+
 <script>
-  import * as THREE from "three";
+  import * as THREE from 'three';
 
-  import { onMount } from "svelte";
+  import { onMount } from 'svelte';
 
-  import { initScene } from "./three.js";
+  import { initScene } from './three.js';
 
   export let players;
   let scene;
@@ -18,7 +25,7 @@
         const material = new THREE.MeshPhongMaterial({ color: 0x44aa88 });
 
         const cube = new THREE.Mesh(geometry, material);
-        cube.position.set(i*50, 0, 0);
+        cube.position.set(i * 50, 0, 0);
         cube.name = p.name;
         scene.add(cube);
       }
@@ -32,11 +39,4 @@
   });
 </script>
 
-<style>
-  .container {
-    width: 500px;
-    height: 500px;
-  }
-</style>
-
-<div bind:this={container} class="container" />
+<div bind:this="{container}" class="container"></div>

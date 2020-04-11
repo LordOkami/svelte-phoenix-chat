@@ -1,10 +1,10 @@
-<script>
-  export let players;
-</script>
-
 <style>
 
 </style>
+
+<script>
+  export let players;
+</script>
 
 <div class="players-panel">
   <h4>Players Online</h4>
