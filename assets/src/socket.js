@@ -1,4 +1,4 @@
-import phx from "phoenix";
+import phx from 'phoenix';
 
 // TODO: Fix destructuring on import
 const Presence = phx.Presence;
@@ -8,11 +8,11 @@ export const connect = ({ user_id, channel_topic }) => {
   let lastSeenId = 0;
 
   // Connect to the socket
-  let socket = new Socket("/socket", {
+  let socket = new Socket('/socket', {
     params: {
       last_seen_id: lastSeenId,
-      user_id
-    }
+      user_id,
+    },
   });
   socket.connect();
 
@@ -20,13 +20,12 @@ export const connect = ({ user_id, channel_topic }) => {
   let channel = socket.channel(channel_topic, {});
   channel
     .join()
-    .receive("ok", resp => {
-      console.log("Joined successfully", resp);
+    .receive('ok', (resp) => {
+      console.log('Joined successfully', resp);
     })
-    .receive("error", resp => {
-      console.log("Unable to join", resp);
+    .receive('error', (resp) => {
+      console.log('Unable to join', resp);
     });
-
 
   let presence = new Presence(channel);
 

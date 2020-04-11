@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // import brick_texture from "../../../"
 const texture = THREE.ImageUtils.loadTexture(
   '/textures/castle_brick/castle_brick_02_red_diff_1k.jpg'
@@ -9,7 +9,7 @@ const texture = THREE.ImageUtils.loadTexture(
 // texture.wrapT = THREE.RepeatWrapping;
 
 export const initScene = (container) => {
-  var camera, controls, scene, renderer;
+  var camera, scene, renderer;
 
   const width = 500;
   const height = 500;

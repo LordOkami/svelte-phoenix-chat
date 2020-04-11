@@ -18,8 +18,7 @@
   $: {
     players.forEach((p, i) => {
       const player = scene.getObjectByName(p.name);
-      if (player) {
-      } else {
+      if (!player) {
         const boxSize = 50;
         const geometry = new THREE.BoxGeometry(boxSize, boxSize, boxSize);
         const material = new THREE.MeshPhongMaterial({ color: 0x44aa88 });

@@ -13,13 +13,11 @@
   // Player name
   let name = '';
 
-  let message = '';
   let messages = [];
 
   let players = [];
 
   // Phoenix variables
-  let socket;
   let chatChannel;
   let presence;
 
@@ -31,7 +29,6 @@
       name: payload.name,
       message: payload.message,
     });
-    message = '';
   };
 
   const onMessageReceived = async ({ name, message }) => {
@@ -40,8 +37,7 @@
   };
 
   const onPresenceSync = presence => {
-    players = presence.list((id, { metas: [first, ...rest] }) => {
-      const count = rest.length + 1;
+    players = presence.list((id) => {
       return { name: id };
     });
   };
@@ -55,7 +51,6 @@
     name = user_id;
     connected = true;
 
-    socket = connection.socket;
     chatChannel = connection.channel;
     presence = connection.presence;
 
