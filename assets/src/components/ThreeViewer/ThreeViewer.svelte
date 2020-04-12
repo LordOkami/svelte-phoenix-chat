@@ -1,10 +1,3 @@
-<style>
-  .container {
-    width: 500px;
-    height: 500px;
-  }
-</style>
-
 <script>
   import * as THREE from 'three';
 
@@ -38,4 +31,11 @@
   });
 </script>
 
-<div bind:this="{container}" class="container"></div>
+<style>
+  .container {
+    width: 500px;
+    height: 500px;
+  }
+</style>
+
+<div bind:this={container} class="container" />

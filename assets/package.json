@@ -8,10 +8,12 @@
     "build": "rollup -c",
     "deploy": "rollup --config",
     "dev": "rollup -c -w",
-    "start": "sirv public",
+    "start": "yarn dev",
     "watch": "rollup --config --watch",
     "lint": "eslint --ext js,svelte src",
-    "lint:fix": "eslint --fix --ext js,svelte src"
+    "lint:fix": "eslint --fix --ext js,svelte src",
+    "prettier": "prettier \"{,!(node_modules)/**/}*.js\"",
+    "prettier:fix": "prettier --write \"{,!(node_modules)/**/}*.js\""
   },
   "dependencies": {
     "phoenix": "file:../deps/phoenix",

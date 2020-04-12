@@ -2,29 +2,24 @@
   "env": {
     "browser": true,
     "es6": true,
-		"node": true,
-		"mocha": true
+    "node": true,
+    "mocha": true
   },
   "parserOptions": {
     "ecmaVersion": 2019,
     "sourceType": "module"
   },
   "settings": {
-		"import/core-modules": ["svelte"]
-	},
-  "extends": [
-    "eslint:recommended", "prettier", "prettier/standard"
-  ],
+    "import/core-modules": ["svelte"]
+  },
+  "extends": ["eslint:recommended", "prettier", "prettier/standard"],
   "overrides": [
     {
       "files": "*.svelte",
       "processor": "svelte3/svelte3"
     }
   ],
-  "plugins": [
-    "svelte3"
-  ],
-  
+  "plugins": ["svelte3"],
   "rules": {
   }
 }

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // import brick_texture from "../../../"
 const texture = THREE.ImageUtils.loadTexture(
-  '/textures/castle_brick/castle_brick_02_red_diff_1k.jpg'
+  '/textures/castle_brick/castle_brick_02_red_diff_1k.jpg',
 );
 // assuming you want the texture to repeat in both directions:
 // texture.wrapS = THREE.RepeatWrapping;
@@ -25,7 +25,7 @@ export const initScene = (container) => {
     height / 2,
     height / -2,
     0.11,
-    1000
+    1000,
   );
   camera.position.z = 100;
   camera.position.y = 100;
