@@ -1,8 +1,4 @@
-import phx from 'phoenix';
-
-// TODO: Fix destructuring on import
-const Presence = phx.Presence;
-const Socket = phx.Socket;
+import { Presence, Socket } from 'phoenix';
 
 export const connect = ({ user_id, channel_topic }) => {
   let lastSeenId = 0;

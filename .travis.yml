@@ -2,16 +2,22 @@ language: elixir
 elixir: # Latest version of Elixir
   - "1.9.1"
 otp_release: "22.2"
+cache:
+  yarn: true
 
 addons: # ensure that Travis-CI provisions a DB for our test:
   postgresql: "9.5"
 env:
   - MIX_ENV=test
+    COMMITTER_EMAIL="$(git log -1 $TRAVIS_COMMIT --pretty="%cE")"
+    AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
+    NODE_VERSION=12
+before_install:
+  - nvm install $NODE_VERSION
 before_script:
-  - export COMMITTER_EMAIL="$(git log -1 $TRAVIS_COMMIT --pretty="%cE")"
-  - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
+  - yarn --cwd assets
 script: # run the tests and deploy:
-  - cd assets
+  - yarn --cwd assets lint
   - mix test
 after_success:
   - ./scripts/deploy.sh
