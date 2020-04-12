@@ -35,7 +35,7 @@
 </style>
 
 <div bind:this={containerRef} class="login">
-  <h1>Login</h1>
+  <h1>Login:</h1>
   <form class="login-form" on:submit|preventDefault={submit}>
     <input bind:value={name} placeholder="enter your name" />
     <button type="submit">Enviar</button>
