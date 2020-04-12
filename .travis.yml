@@ -1,14 +1,19 @@
 language: elixir
 elixir: # Latest version of Elixir
-  - '1.9.1'
-otp_release: '22.2'
+  - "1.9.1"
+otp_release: "22.2"
 
 addons: # ensure that Travis-CI provisions a DB for our test:
-  postgresql: '9.5'
+  postgresql: "9.5"
 env:
   - MIX_ENV=test
 before_script:
   - export COMMITTER_EMAIL="$(git log -1 $TRAVIS_COMMIT --pretty="%cE")"
   - export AUTHOR_NAME="$(git log -1 $TRAVIS_COMMIT --pretty="%aN")"
 script: # run the tests and deploy:
-  - mix test && ./deploy.sh
+  - cd assets
+  - mix test
+after_success:
+  - ./scripts/deploy.sh
+after_failure:
+  - ./scripts/failure.sh
