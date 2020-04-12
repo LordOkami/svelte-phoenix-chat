@@ -15,7 +15,7 @@ const production = process.env.MIX_ENV == 'prod';
 
 export default {
   // main entry point
-  input: 'js/main.js',
+  input: 'src/main.js',
 
   // define output path & format and request sourcemaps
   output: {

@@ -18,7 +18,8 @@
   "dependencies": {
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "three": "^0.115.0"
+    "three": "^0.115.0",
+    "vanta": "^0.5.14"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.0",

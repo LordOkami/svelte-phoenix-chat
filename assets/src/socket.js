@@ -1,5 +1,6 @@
-import { Presence, Socket } from 'phoenix';
+import phoenix from 'phoenix';
 
+const { Presence, Socket } = phoenix;
 export const connect = ({ user_id, channel_topic }) => {
   let lastSeenId = 0;
 

@@ -3830,6 +3830,11 @@ v8-compile-cache@^2.0.3:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.1.0.tgz#e14de37b31a6d194f5690d67efc4e7f6fc6ab30e"
   integrity sha512-usZBT3PW+LOjM25wbqIlZwPeJV+3OSz3M1k1Ws8snlW39dZyYL9lOGC5FgPVHfk0jKmjiDV8Z0mIbVQPiwFs7g==
 
+vanta@^0.5.14:
+  version "0.5.14"
+  resolved "https://registry.yarnpkg.com/vanta/-/vanta-0.5.14.tgz#5b32178bc89174dc77827cd703ae818d54ebcb76"
+  integrity sha512-3oCJ0MgzWgydxc9yeiC9DqG5UuaTjyECAwQctaRz90muzQn7w6soNsn+4Bf2pILPaKz6tpJzAuV14jNscvONnQ==
+
 vendors@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"

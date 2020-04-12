@@ -1,14 +1,14 @@
 <script>
   import * as THREE from 'three';
 
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
 
   import { initScene } from './three.js';
 
   export let players;
   let scene;
 
-  $: {
+  onMount(() => {
     players.forEach((p, i) => {
       const player = scene.getObjectByName(p.name);
       if (!player) {
@@ -22,7 +22,13 @@
         scene.add(cube);
       }
     });
-  }
+  });
+
+  onDestroy(() => {
+    if (scene) {
+      scene.dispose();
+    }
+  });
 
   let container;
 
