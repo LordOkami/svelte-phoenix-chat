@@ -11,18 +11,18 @@ defmodule GatChat.Player do
       y: 0
     },
     skin: 1,
-    animation: 1,
+    animation: 1
   )
 
-  def new(%{id: id, username: username}) do
-    %__MODULE__{id: id, username: username}
+  def new(%{username: username}) do
+    %__MODULE__{id: generate_id(), username: username}
   end
 
-  def render(%__MODULE__{} = player) do
-    %{
-      "id" => player.id,
-      "username" => player.username,
-      "position" => player.position,
-    }
+  def move(%GatChat.Player{} = player, position) do
+    %{player | position: position}
+  end
+
+  def generate_id() do
+    UUID.uuid4()
   end
 end

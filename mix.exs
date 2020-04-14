@@ -52,7 +52,8 @@ defmodule GatChat.MixProject do
       {:plug_cowboy, "~> 2.0"},
       # tracking test coverage
       {:excoveralls, "~> 0.7.0", only: [:test, :dev]},
-      {:distillery, "~> 2.1", runtime: false}
+      {:distillery, "~> 2.1", runtime: false},
+      {:uuid, "~> 1.1"}
     ]
   end
 

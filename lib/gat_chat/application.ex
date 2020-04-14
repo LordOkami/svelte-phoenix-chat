@@ -6,6 +6,8 @@ defmodule GatChat.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
+
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
@@ -14,7 +16,8 @@ defmodule GatChat.Application do
       GatChatWeb.Endpoint,
       # Starts a worker by calling: GatChat.Worker.start_link(arg)
       # {GatChat.Worker, arg},
-      GatChatWeb.Presence
+      supervisor(GatChatWeb.Presence, []),
+      supervisor(GatChat.Players, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

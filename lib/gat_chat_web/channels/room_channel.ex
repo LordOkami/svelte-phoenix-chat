@@ -2,6 +2,7 @@ defmodule GatChatWeb.RoomChannel do
   use GatChatWeb, :channel
   alias GatChatWeb.Presence
   alias GatChat.Player
+  alias GatChat.Players
   def join("room:lobby", _, socket) do
     send(self(), :after_join)
     {:ok, socket}
@@ -21,8 +22,9 @@ defmodule GatChatWeb.RoomChannel do
     # Instantiate presence for new connection
     user_id = socket.assigns.user_id
     IO.inspect(socket)
-    player = Player.new(%{id: socket.id, username: user_id})
-    IO.inspect(player)
+    Player.new(%{username: user_id})
+    |> Players.add()
+    IO.inspect(Players.all())
 
     {:ok, _} =
       Presence.track(socket, socket.assigns.user_id, %{
@@ -45,8 +47,4 @@ defmodule GatChatWeb.RoomChannel do
     {:noreply, socket}
   end
 
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
-  end
 end
