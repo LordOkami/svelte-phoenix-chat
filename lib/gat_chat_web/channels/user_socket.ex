@@ -2,7 +2,7 @@ defmodule GatChatWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  channel "room:lobby", GatChatWeb.RoomChannel
+  channel "room:*", GatChatWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -15,9 +15,8 @@ defmodule GatChatWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(params, socket, _connect_info) do
-    IO.inspect(params)
-    {:ok, assign(socket, :user_id, params["user_id"])}
+  def connect(%{"user_id" => user_id}, socket, _connect_info) do
+    {:ok, assign(socket, :user_id, user_id)}
   end
 
   
