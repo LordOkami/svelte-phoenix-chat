@@ -7,7 +7,7 @@
 
   let container;
 
-  export let players, movePlayer;
+  export let players, movePlayer, chatChannel;
   let scene, camera;
 
   // Svelte life cycle
@@ -65,6 +65,20 @@
       }
     }
   };
+
+  const onPresenceDiff = (diff) => {
+    const { leaves } = diff;
+
+    Object.keys(leaves).forEach((playerId) => {
+      const player = scene.getObjectByName(playerId);
+
+      if(player) {
+        scene.remove(player);
+      }
+    });
+  };
+
+  chatChannel.on('presence_diff', onPresenceDiff);
 </script>
 
 <style>

@@ -50,6 +50,7 @@
     players = presence.state;
   };
 
+
   const onLogin = ({ username }) => {
     const connection = connect({
       username,
@@ -77,5 +78,5 @@
     {name}
     {players}
   />
-  <ThreeViewer {players} movePlayer={(position) => movePlayer(chatChannel, position)}/>
+  <ThreeViewer {players} {chatChannel} movePlayer={(position) => movePlayer(chatChannel, position)}/>
 {/if}

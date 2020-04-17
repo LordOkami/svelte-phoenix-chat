@@ -12,6 +12,8 @@ config :gat_chat, GatChatWeb.Endpoint,
   code_reloader: true,
   check_origin: false,
   watchers: [yarn: ["deploy", cd: Path.expand("../assets", __DIR__)]]
+  # watchers: []
+
 
 # Configure your database
 config :gat_chat, GatChat.Repo,
