@@ -9,6 +9,7 @@
   import Login from './components/Login.svelte';
   import Chat from './components/Chat.svelte';
   import ThreeViewer from './components/ThreeViewer/ThreeViewer.svelte';
+  import PlayersLists from './components/PlayersLists.svelte';
 
   // Player name
   let name = '';
@@ -72,11 +73,13 @@
 {#if !connected}
   <Login {onLogin} />
 {:else}
+  <ThreeViewer {players} {chatChannel} movePlayer={(position) => movePlayer(chatChannel, position)}/>
   <Chat
     onSend="{message => sendMessage(chatChannel, { name, message })}"
     {messages}
     {name}
     {players}
   />
-  <ThreeViewer {players} {chatChannel} movePlayer={(position) => movePlayer(chatChannel, position)}/>
+  <PlayersLists {players} />
+
 {/if}
