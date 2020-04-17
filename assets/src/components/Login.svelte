@@ -11,7 +11,7 @@
   let vantaEffect;
 
   const submit = () => {
-    onLogin({ user_id: name });
+    onLogin({ username: name });
   };
 
   onMount(() => {

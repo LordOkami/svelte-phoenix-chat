@@ -1,14 +1,14 @@
 import phoenix from 'phoenix';
 
 const { Presence, Socket } = phoenix;
-export const connect = ({ user_id, channel_topic }) => {
+export const connect = ({ username, channel_topic }) => {
   let lastSeenId = 0;
 
   // Connect to the socket
   let socket = new Socket('/socket', {
     params: {
       last_seen_id: lastSeenId,
-      user_id,
+      username,
     },
   });
   socket.connect();

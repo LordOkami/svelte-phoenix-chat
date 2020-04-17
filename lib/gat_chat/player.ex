@@ -1,7 +1,7 @@
 defmodule GatChat.Player do
   @moduledoc """
   """
-
+  @derive {Jason.Encoder, only: [:id, :username, :position, :life]}
   defstruct(
     id: 0,
     username: "",

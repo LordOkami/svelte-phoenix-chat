@@ -1,64 +1,93 @@
 import * as THREE from 'three';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// import brick_texture from "../../../"
-const texture = THREE.ImageUtils.loadTexture(
-  '/textures/castle_brick/castle_brick_02_red_diff_1k.jpg',
+
+const floorTexture = new THREE.ImageUtils.loadTexture(
+  '/textures/checkerboard.jpg',
 );
-// assuming you want the texture to repeat in both directions:
-// texture.wrapS = THREE.RepeatWrapping;
-// texture.wrapT = THREE.RepeatWrapping;
 
 export const initScene = (container) => {
   var camera, scene, renderer;
 
-  const width = 500;
-  const height = 500;
-
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(width, height);
-  container.appendChild(renderer.domElement);
-
-  camera = new THREE.OrthographicCamera(
-    width / -2,
-    width / 2,
-    height / 2,
-    height / -2,
-    0.11,
-    1000,
-  );
-  camera.position.z = 100;
-  camera.position.y = 100;
-  camera.position.x = 100;
-  camera.lookAt(new THREE.Vector3(0, 0, 0));
-
+  ///////////
+  // SCENE //
+  ///////////
   scene = new THREE.Scene();
 
-  const color = 0xffffff;
-  const intensity = 1;
-  const light = new THREE.DirectionalLight(color, intensity);
-  light.position.set(-1, 2, 4);
-  scene.add(light);
+  ////////////
+  // CAMERA //
+  ////////////
+  var SCREEN_WIDTH = window.innerWidth,
+    SCREEN_HEIGHT = window.innerHeight;
+  // camera attributes
+  var VIEW_ANGLE = 45,
+    ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
+    NEAR = 0.1,
+    FAR = 20000;
+  // set up camera
+  camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+  // add the camera to the scene
+  scene.add(camera);
+  // the camera defaults to position (0,0,0)
+  // 	so pull it back (z = 400) and up (y = 100) and set the angle towards the scene origin
+  camera.position.set(0, 150, 400);
+  camera.lookAt(scene.position);
 
-  const ambientLight = new THREE.AmbientLight(color, intensity);
+  //////////////
+  // RENDERER //
+  //////////////
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+  container.appendChild(renderer.domElement);
+
+  ///////////
+  // LIGHT //
+  ///////////
+  // create a light
+  const light = new THREE.PointLight(0xffffff);
+  light.position.set(0, 250, 0);
+  scene.add(light);
+  const ambientLight = new THREE.AmbientLight(0x111111);
   scene.add(ambientLight);
 
-  // Fog
-  scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
+  ///////////
+  // FLOOR //
+  ///////////
 
-  // Add floor
+  // note: 4x4 checkboard pattern scaled so that each square is 25 by 25 pixels.
 
-  const material = new THREE.MeshLambertMaterial({ map: texture });
-  const plane = new THREE.Mesh(new THREE.PlaneGeometry(400, 3500), material);
-  plane.material.side = THREE.DoubleSide;
+  floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+  floorTexture.repeat.set(10, 10);
+  // DoubleSide: render texture on both sides of mesh
+  var floorMaterial = new THREE.MeshBasicMaterial({
+    map: floorTexture,
+    side: THREE.DoubleSide,
+  });
+  var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 1, 1);
+  var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+  floor.position.y = -0.5;
+  floor.rotation.x = Math.PI / 2;
+  floor.name = 'floor';
+  scene.add(floor);
 
-  // rotation.z is rotation around the z-axis, measured in radians (rather than degrees)
-  // Math.PI = 180 degrees, Math.PI / 2 = 90 degrees, etc.
-  plane.rotation.x = Math.PI / 2;
+  /////////
+  // SKY //
+  /////////
 
-  scene.add(plane);
+  // recommend either a skybox or fog effect (can't use both at the same time)
+  // without one of these, the scene's background color is determined by webpage background
 
-  // controls = new OrbitControls(camera, renderer.domElement);
+  // make sure the camera's "far" value is large enough so that it will render the skyBox!
+  var skyBoxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
+  // BackSide: render faces from inside of the cube, instead of from outside (default).
+  var skyBoxMaterial = new THREE.MeshBasicMaterial({
+    color: 0x9999ff,
+    side: THREE.BackSide,
+  });
+  var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+  scene.add(skyBox);
+
+  // fog must be added to scene before first render
+  scene.fog = new THREE.FogExp2(0x9999ff, 0.00025);
 
   renderer.render(scene, camera);
 
@@ -73,5 +102,5 @@ export const initScene = (container) => {
   };
 
   animate();
-  return scene;
+  return { camera, scene, renderer };
 };

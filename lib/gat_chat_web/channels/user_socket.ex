@@ -15,8 +15,8 @@ defmodule GatChatWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(%{"user_id" => user_id}, socket, _connect_info) do
-    {:ok, assign(socket, :user_id, user_id)}
+  def connect(%{"username" => username}, socket, _connect_info) do
+    {:ok, assign(socket, :username, username)}
   end
 
   

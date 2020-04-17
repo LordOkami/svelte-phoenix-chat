@@ -68,6 +68,24 @@ defmodule GatChatWeb.Presence do
   information, while maintaining the required `:metas` field from the
   original presence data.
   """
-  use Phoenix.Presence, otp_app: :gat_chat,
-                        pubsub_server: GatChat.PubSub
+
+  alias GatChat.Players
+
+  def fetch(_topic, entries) do
+    players =
+      entries
+      |> Map.keys()
+      |> Players.list_players_with_ids()
+      |> Enum.into(%{}, fn player ->
+        {to_string(player.id), player}
+      end)
+
+    for {key, %{metas: metas}} <- entries, into: %{} do
+      {key, %{metas: metas, player: players[key]}}
+    end
+  end
+
+  use Phoenix.Presence,
+    otp_app: :gat_chat,
+    pubsub_server: GatChat.PubSub
 end

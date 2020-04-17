@@ -15,7 +15,7 @@
 
   let messages = [];
 
-  let players = [];
+  let players = {};
 
   // Phoenix variables
   let chatChannel;
@@ -31,30 +31,39 @@
     });
   };
 
+  const movePlayer = (channel, position) => {
+    channel.push('move', {position})
+  }
+
   const onMessageReceived = async ({ name, message }) => {
     messages = [...messages, { name, message }];
     await tick();
   };
 
+  const onMovePlayer = async ({player_id, position}) => {
+    players[player_id].player.position = position;
+    await tick();
+
+  }
+
   const onPresenceSync = presence => {
-    players = presence.list((id) => {
-      return { name: id };
-    });
+    players = presence.state;
   };
 
-  const onLogin = ({ user_id }) => {
+  const onLogin = ({ username }) => {
     const connection = connect({
-      user_id,
+      username,
       channel_topic: 'room:lobby',
     });
 
-    name = user_id;
+    name = username;
     connected = true;
 
     chatChannel = connection.channel;
     presence = connection.presence;
 
     chatChannel.on('shout', onMessageReceived);
+    chatChannel.on('move', onMovePlayer);
     presence.onSync(() => onPresenceSync(presence));
   };
 </script>
@@ -68,5 +77,5 @@
     {name}
     {players}
   />
+  <ThreeViewer {players} movePlayer={(position) => movePlayer(chatChannel, position)}/>
 {/if}
-<ThreeViewer {players} />

@@ -9,26 +9,34 @@ defmodule GatChat.Players do
   end
 
   def add(player) do
-    Agent.update(__MODULE__, fn(players) -> [player | players] end)
+    Agent.update(__MODULE__, fn players -> [player | players] end)
     player
   end
 
   def reset() do
-    Agent.update(__MODULE__, fn(_) -> [] end)
+    Agent.update(__MODULE__, fn _ -> [] end)
   end
 
   def all() do
-    Agent.get(__MODULE__, fn(players) -> players end)
+    Agent.get(__MODULE__, fn players -> players end)
   end
 
-
+  def list_players_with_ids(ids) do
+    all()
+    |> Enum.filter(fn player ->
+      ids
+      |> Enum.member?(player.id)
+    end)
+  end
 
   def get(id) do
-    Agent.get(__MODULE__, fn(players) -> Enum.find(players, fn(player) -> player.id == id end) end)
+    Agent.get(__MODULE__, fn players -> Enum.find(players, fn player -> player.id == id end) end)
   end
 
   def remove(id) do
-    Agent.update(__MODULE__, fn(players) -> Enum.filter(players, fn(player) -> player.id != id end) end)
+    Agent.update(__MODULE__, fn players ->
+      Enum.filter(players, fn player -> player.id != id end)
+    end)
   end
 
   def count() do
@@ -36,12 +44,11 @@ defmodule GatChat.Players do
   end
 
   def move(id, position) do
-    Agent.update(__MODULE__, fn(players) -> sync_and_move(players, id, position) end)
+    Agent.update(__MODULE__, fn players -> sync_and_move(players, id, position) end)
   end
 
-
   defp sync_and_move(players, id_to_move, position) do
-    Enum.map(players, fn(player) ->
+    Enum.map(players, fn player ->
       if player.id == id_to_move do
         Player.move(player, position)
       else
@@ -49,5 +56,4 @@ defmodule GatChat.Players do
       end
     end)
   end
-
 end
