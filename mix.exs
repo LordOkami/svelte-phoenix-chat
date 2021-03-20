@@ -5,7 +5,7 @@ defmodule GatChat.MixProject do
     [
       app: :gat_chat,
       version: "0.1.0",
-      elixir: "~> 1.9.1",
+      elixir: "~> 1.11.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,

@@ -13,9 +13,7 @@
     "titleBar.inactiveForeground": "#e7e7e799",
     "statusBar.background": "#003300",
     "statusBarItem.hoverBackground": "#006600",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBar.border": "#003300",
-    "titleBar.border": "#003300"
+    "statusBar.foreground": "#e7e7e7"
   },
   "peacock.color": "#003300",
   "prettier.configPath": "./assets/.prettierrc",
